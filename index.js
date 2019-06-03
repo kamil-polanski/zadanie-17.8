@@ -1,7 +1,24 @@
-const http = require(`http`);
-const fs = require(`fs`);
+const express = require(`express`);
+const path = require(`path`);
+const colors = require(`colors`)
+const app = express();
 
-const server = http.createServer();
+app.get(`/hello`, function(req, res) {
+
+    res.sendFile(path.join(__dirname + `/index.html`));
+});
+
+app.get(`*`, function(req, res) {
+    res.set(`Content-Type`, `image/jpg`)
+    res.sendFile(path.join(__dirname + `/img/404.jpg`));
+});
+
+const server = app.listen(9000, function() {
+    console.log(`Sever on`.green)
+})
+
+
+/*
 
 server.on(`request`, function(request, response) {
     response.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -26,3 +43,4 @@ server.on(`request`, function(request, response) {
 });
 
 server.listen(9000);
+*/
